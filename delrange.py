@@ -2,18 +2,19 @@ import onnx
 # from print_node import print_node
 
 
-model_ori = '../resnet18_224_sim_new3.onnx'
-model_new = '../resnet18_224_sim_new4.onnx'
+model_ori = '../resnet18_224_sim.onnx'
+model_new = '../resnet18_224_sim_new3.onnx'
 
 # print_node(model_ori)
 
 model = onnx.load(model_ori) 
 graph = model.graph
-node_id = 46
+# node_id = 46
 
-old_squeeze_node = graph.node[node_id]
-print(old_squeeze_node)
-graph.node.remove(old_squeeze_node)
+for node_id,node in enumerate(graph.node):
+    if node_id>=46:
+        old_squeeze_node = graph.node[node_id]
+        graph.node.remove(old_squeeze_node)
 # to_leave = graph.node[node_id-1]
 # to_edit = graph.node[-1]
 # print(to_leave.output[0])
